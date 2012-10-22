@@ -16,6 +16,8 @@
      */
     var Loader = function(options){
         /* Extend the default options with the supplied ones if any */
+        this.options = {};
+        
         $.extend(true, this.options, this.defaults, options);
         
         /* Find current script location */
@@ -35,10 +37,11 @@
             .css({
                 'display':          'none',
                 'position':         'absolute',
-                'z-index':          1200,
+                'z-index':          this.options.zIndex,
                 'left':             0,
                 'top':              0,
                 'width':            '100%',
+                'height':           '100%',
                 'border-radius':    'inherit'
             });
         
@@ -81,11 +84,6 @@
     };
     
     /**
-     * Options
-     */
-    Loader.prototype.options = {};
-    
-    /**
      * Default options
      * Will be extended in the constructor
      */
@@ -96,7 +94,8 @@
         opacity:            0.5,
         appendTo:           'body',
         fadeInDuration:     300,
-        fadeOutDuration:    300
+        fadeOutDuration:    300,
+        zIndex:             1000
     };
     
     /**
@@ -104,21 +103,21 @@
      */
     Loader.prototype.enable = function(d){
         /* Set overlay height to the height of the container that is appended to */
-        this.overlay.css({'height': $('body' === this.options.appendTo ? document : this.options.appendTo).height()});
+        if('body' === this.options.appendTo){
+            this.overlay.css({'height': $(document).height()});
+        }
         
-        var duration = d || this.options.fadeInDuration;
-        this.overlay.fadeIn(duration);
+        this.overlay.fadeIn(d || this.options.fadeInDuration);
     };
     
     /**
      * Hide the loading overlay
      */
     Loader.prototype.disable = function(d){
-        var duration = d || this.options.fadeOutDuration;
-        this.overlay.fadeOut(duration);
+        this.overlay.fadeOut(d || this.options.fadeOutDuration);
     };
     
     /* Append the plugin to window */
     window.LoaderAnimation = Loader;
     
-}(Modernizr, Utils, $));
+}(Modernizr, Utils, jQuery));

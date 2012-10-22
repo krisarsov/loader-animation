@@ -22,13 +22,13 @@
             var defaultLoader = new LoaderAnimation();
             $('.load-into-body').bind('click', function(event) {
                 event.preventDefault();
+                
                 defaultLoader.enable();
                 
                 setTimeout(function(){
                     defaultLoader.disable();
                 }, 2000);
             });
-            
             
             /* Load into div */
             var divLoader = new LoaderAnimation({
@@ -61,16 +61,39 @@
                     customDurationsLoader.disable();
                 }, 3000);
             });
+            
+            /* Load with custom color, image, opacity */
+            var customLoader = new LoaderAnimation({
+                appendTo: '#example-div-3',
+                image: 'ajax-loader1.gif',
+                opacity: .8
+            });
+            
+            $('.load-into-div-3').bind('click', function(event) {
+                event.preventDefault();
+                
+                customLoader.enable();
+                
+                setTimeout(function(){
+                    customLoader.disable();
+                }, 3000);
+            });
         })
     </script>
     <style type="text/css">
-        #example-div-1, #example-div-2 {
+        table.options, table.options th, table.options td {
+            border: 1px solid #000000;
+            border-collapse: collapse;
+            padding: 3px 5px;
+        }
+    
+        #example-div-1, #example-div-2, #example-div-3 {
             display: block;
             position: relative;
             width: 500px;
-            height: 500px;
+            height: 350px;
             border-radius: 20px;
-/*            padding: 100px;*/
+            padding: 10px;
         }
         
         #example-div-1 {
@@ -80,28 +103,111 @@
         #example-div-2 {
             background-color: #00FF00;
         }
+        #example-div-3 {
+            background-color: #00FFFF;
+        }
     </style>
 </head>
-
 <body>
     <div>
         <header>
-            <h1>loaderAnimation</h1>
+            <h1>loaderAnimation - Plugin</h1>
         </header>
-
-        <h2>Default behaviour</h2>
-        <p>Display an overlay animation over the whole document. <a href="#" class="load-into-body">Load animation</a></p>
         
-        <code>
-            <pre>
-            </pre>
-        </code>
+        <h2>Options</h2>
+        <table class="options">
+            <thead>
+                <tr>
+                    <th>Option</th>
+                    <th>Value</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>color</td>
+                    <td>HEX color value e.g. #FF00ED</td>
+                    <td>#000000</td>
+                    <td>Color of the overlay.</td>
+                </tr>
+                <tr>
+                    <td>image</td>
+                    <td>Filename e.g. 'ajax-loader2.gif'</td>
+                    <td>'ajax-loader.gif'</td>
+                    <td>The filename of the loader image to be displayed. <br />You can upload your custom images in 'path_to_plugin/img/'</td>
+                </tr>
+                <tr>
+                    <td>imageAlt</td>
+                    <td>String e.g. 'Loading please wait...'</td>
+                    <td>'Loading...'</td>
+                    <td>Alt text of the image if for some reason the image is not present.</td>
+                </tr>
+                <tr>
+                    <td>opacity</td>
+                    <td>Float e.g. 0.7</td>
+                    <td>0.5</td>
+                    <td>The opacity of the overlay color. Uses CSS's function rgba. <br />If the browser doesn't support rgba a semi-transparent .png image will be rendered as an overlay.</td>
+                </tr>
+                <tr>
+                    <td>appendTo</td>
+                    <td>e.g. '#my-div'</td>
+                    <td>'body'</td>
+                    <td>DOM element, CSS selector or jQuery object to which to add the overlay.</td>
+                </tr>
+                <tr>
+                    <td>fadeInDuration</td>
+                    <td>Duration in milliseconds e.g. 1500s</td>
+                    <td>300</td>
+                    <td>The fadeIn duration. Could be overriden when calling loader->enable(300).</td>
+                </tr>
+                <tr>
+                    <td>fadeOutDuration</td>
+                    <td>Duration in milliseconds e.g. 1500s</td>
+                    <td>300</td>
+                    <td>The fadeOut duration. Could be overriden when calling loader->disable(300).</td>
+                </tr>
+                <tr>
+                    <td>zIndex</td>
+                    <td>Integer e.g. 30</td>
+                    <td>1000</td>
+                    <td>CSS z-index of the overlay.</td>
+                </tr>
+            </tbody>
+        </table>
         
+        <h2>Methods</h2>
+        <table class="options">
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Params</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>enable</td>
+                    <td>duration (optional) - Overrides the fadeIn duration set when creating the loader.</td>
+                    <td>Display the overlay.</td>
+                </tr>
+                <tr>
+                    <td>disable</td>
+                    <td>duration (optional) - Overrides the fadeOut duration set when creating the loader.</td>
+                    <td>Hide the overlay.</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>Examples</h2>
+        
+        <h3>Default behaviour</h3>
+        <p>Display an overlay animation over the whole document. <button href="#" class="load-into-body">Load animation</button></p>
         
         <h2>Animation within an DOM element </h2>
         <p>Displays an overlay animation over a specified DOM element.</p>
         <div id="example-div-1">
-            <a href="#" class="load-into-div-1">Load animation</a>
+            <button class="load-into-div-1">Load animation</button>
             <code>
 <pre>
 /* Load into div */
@@ -123,11 +229,11 @@ $('.load-into-div-1').bind('click', function(event) {
         </div>
         
         
-        <h2>Custom durations</h2>
+        <h3>Custom durations</h3>
         <p>Displays an overlay animation with custom fadeIn and fadeOut durations</p>
         <div id="example-div-2">
-            <a href="#" class="load-into-div-2">Load animation</a>
-            <p>fadeIn for 1,2 seconds and fadeOut for 3 seconds.</p>
+            <button class="load-into-div-2">Load animation</button>
+            <p>fadeIn for 1.2 seconds and fadeOut for 3 seconds.</p>
             <code>
 <pre>
 /* Load with custom durations */
@@ -144,6 +250,32 @@ $('.load-into-div-2').bind('click', function(event) {
     
     setTimeout(function(){
         customDurationsLoader.disable();
+    }, 3000);
+});
+</pre>
+            </code>
+        </div>
+        
+        <h3>Custom options</h3>
+        <p>Displays an overlay animation with custom color, image, opacity</p>
+        <div id="example-div-3">
+            <button class="load-into-div-3">Load animation</button>
+            <code>
+<pre>
+/* Load with custom color, image, opacity */
+var customLoader = new LoaderAnimation({
+    appendTo: '#example-div-3',
+    image: 'ajax-loader1.gif',
+    opacity: .8
+});
+
+$('.load-into-div-3').bind('click', function(event) {
+    event.preventDefault();
+    
+    customLoader.enable();
+    
+    setTimeout(function(){
+        customLoader.disable();
     }, 3000);
 });
 </pre>
