@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+    Remove this if you use the .htaccess -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>loaderAnimation - Javascript plugin</title>
+    <meta name="author" content="Kristian Arsov" />
+
+    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+    
+    <script type="text/javascript" src="../libs/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="../libs/Modernizr.rgba.js"></script>
+    <script type="text/javascript" src="../libs/Utils.lib.js"></script>
+    <script type="text/javascript" src="../Loader.lib.js" id="loaderJS"></script>
+    <script type="text/javascript">
+        $(function(){
+            /* Default behavior */
+            var defaultLoader = new LoaderAnimation();
+            $('.load-into-body').bind('click', function(event) {
+                event.preventDefault();
+                defaultLoader.enable();
+                
+                setTimeout(function(){
+                    defaultLoader.disable();
+                }, 2000);
+            });
+            
+            
+            /* Load into div */
+            var divLoader = new LoaderAnimation({
+                appendTo: '#example-div-1'
+            });
+            
+            $('.load-into-div-1').bind('click', function(event) {
+                event.preventDefault();
+                
+                divLoader.enable();
+                
+                setTimeout(function(){
+                    divLoader.disable();
+                }, 2000);
+            });
+            
+            /* Load with custom durations */
+            var customDurationsLoader = new LoaderAnimation({
+                appendTo: '#example-div-2',
+                fadeInDuration: 1200,
+                fadeOutDuration: 3000
+            });
+            
+            $('.load-into-div-2').bind('click', function(event) {
+                event.preventDefault();
+                
+                customDurationsLoader.enable();
+                
+                setTimeout(function(){
+                    customDurationsLoader.disable();
+                }, 3000);
+            });
+        })
+    </script>
+    <style type="text/css">
+        #example-div-1, #example-div-2 {
+            display: block;
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border-radius: 20px;
+/*            padding: 100px;*/
+        }
+        
+        #example-div-1 {
+            background-color: #FF0000;
+        }
+        
+        #example-div-2 {
+            background-color: #00FF00;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <header>
+            <h1>loaderAnimation</h1>
+        </header>
+
+        <h2>Default behaviour</h2>
+        <p>Display an overlay animation over the whole document. <a href="#" class="load-into-body">Load animation</a></p>
+        
+        <code>
+            <pre>
+            </pre>
+        </code>
+        
+        
+        <h2>Animation within an DOM element </h2>
+        <p>Displays an overlay animation over a specified DOM element.</p>
+        <div id="example-div-1">
+            <a href="#" class="load-into-div-1">Load animation</a>
+            <code>
+<pre>
+/* Load into div */
+var divLoader = new LoaderAnimation({
+    appendTo: '#example-div-1'
+});
+
+$('.load-into-div-1').bind('click', function(event) {
+    event.preventDefault();
+    
+    divLoader.enable();
+    
+    setTimeout(function(){
+        divLoader.disable();
+    }, 2000);
+});
+</pre>
+            </code>
+        </div>
+        
+        
+        <h2>Custom durations</h2>
+        <p>Displays an overlay animation with custom fadeIn and fadeOut durations</p>
+        <div id="example-div-2">
+            <a href="#" class="load-into-div-2">Load animation</a>
+            <p>fadeIn for 1,2 seconds and fadeOut for 3 seconds.</p>
+            <code>
+<pre>
+/* Load with custom durations */
+var customDurationsLoader = new LoaderAnimation({
+    appendTo: '#example-div-2',
+    fadeInDuration: 1200,
+    fadeOutDuration: 3000
+});
+
+$('.load-into-div-2').bind('click', function(event) {
+    event.preventDefault();
+    
+    customDurationsLoader.enable();
+    
+    setTimeout(function(){
+        customDurationsLoader.disable();
+    }, 3000);
+});
+</pre>
+            </code>
+        </div>
+    </div>
+</body>
+</html>
