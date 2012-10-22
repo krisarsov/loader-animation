@@ -1,4 +1,4 @@
-;(function(M, U){
+;(function(M, U, $){
     "use strict";
     /**
      * Loader component
@@ -118,6 +118,6 @@
     };
     
     /* Append the plugin to window */
-    window.LoadingAnimation = Loader;
+    window.LoaderAnimation = Loader;
     
-}(Modernizr, Utils));
+}(Modernizr, Utils, $));
