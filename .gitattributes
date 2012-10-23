@@ -1,0 +1,5 @@
+.gitattributes export-ignore
+.gitignore export-ignore
+.project export-ignore
+.settings export-ignore
+.settings/* export-ignore
